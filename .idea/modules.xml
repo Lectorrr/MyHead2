@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/MyHead2.iml" filepath="$PROJECT_DIR$/MyHead2.iml" />
+      <module fileurl="file://$PROJECT_DIR$/second/second.iml" filepath="$PROJECT_DIR$/second/second.iml" />
+      <module fileurl="file://$PROJECT_DIR$/second-vue/second-vue.iml" filepath="$PROJECT_DIR$/second-vue/second-vue.iml" />
+    </modules>
+  </component>
+</project>
