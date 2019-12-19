@@ -6,17 +6,18 @@ import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @MappedSuperclass
-public class BaseEntity {
+public class BaseEntity<ID extends Serializable> {
 
     @Id
     @GeneratedValue(generator = "system-uuid")
     @GenericGenerator(name = "system-uuid", strategy = "uuid")
     @Column(name = "UUID", length = 60)
-    private String id;
+    private ID id;
 
     @Column(name = "createDate")
     private Date createDate = new Date();
@@ -24,11 +25,11 @@ public class BaseEntity {
     @Column(name = "updateDate")
     private Date updateDate = new Date();
 
-    public String getId() {
+    public ID getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(ID id) {
         this.id = id;
     }
 
