@@ -10,18 +10,33 @@ import javax.persistence.Table;
 @Table(name = "bookInfo")
 public class BookInfo extends BaseEntity<String> {
 
+    /**
+     * 书籍名称
+     */
     @Column(name = "book_name")
     private String bookName;
 
+    /**
+     * 作者姓名
+     */
     @Column(name = "book_writer")
     private String bookWriter;
 
+    /**
+     * 出版社名称
+     */
     @Column(name = "publish")
     private String publish;
 
+    /**
+     * 封面图片
+     */
     @Column(name = "cover_img")
     private String coverImg;
 
+    /**
+     * 书籍简介
+     */
     @Column(name = "description")
     private String description;
 
