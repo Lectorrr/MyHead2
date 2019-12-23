@@ -40,6 +40,7 @@ public class SysUser extends BaseEntity<String> {
      */
     @Column(name = "del_flag")
     private Integer delFlag = 0;
+
     /**
      * 用户和角色关联
      * 多对多的关系
@@ -47,8 +48,8 @@ public class SysUser extends BaseEntity<String> {
     @ManyToMany(fetch = FetchType.EAGER) //立即从数据库中加载数据
     @JoinTable(
             name = "sys_user_role",
-            joinColumns = {@JoinColumn(name = "USER_ID", referencedColumnName = "ID")},             //sys_user表中的id在这个表中喂USER_ID
-            inverseJoinColumns = {@JoinColumn(name = "ROLE_ID", referencedColumnName = "ID")},      //sys_role表中的id在sys_user_role表中喂ROLE_ID
+            joinColumns = {@JoinColumn(name = "USER_ID", referencedColumnName = "UUID")},             //sys_user表中的id在这个表中喂USER_ID
+            inverseJoinColumns = {@JoinColumn(name = "ROLE_ID", referencedColumnName = "UUID")},      //sys_role表中的id在sys_user_role表中喂ROLE_ID
             uniqueConstraints = {@UniqueConstraint(columnNames = {"USER_ID", "ROLE_ID"})}           //这两个字段联合在一起时唯一确定的
     )
     private List<SysRole> roles;
@@ -105,7 +106,7 @@ public class SysUser extends BaseEntity<String> {
      * 密码盐
      * 重新对盐进行定义，salt = 用户名 + salt
      */
-    public String getCredentialsSalt(){
-        return this.username+this.salt;
+    public String getCredentialsSalt() {
+        return this.username + this.salt;
     }
 }

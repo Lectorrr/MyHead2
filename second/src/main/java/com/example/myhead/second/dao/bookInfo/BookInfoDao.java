@@ -11,8 +11,6 @@ public interface BookInfoDao extends BaseDao<BookInfo, String> {
      * 根据书名查找书籍信息
      * @param bookName 书名
      */
-    BookInfo findBydBookName(String bookName);
-
     List<BookInfo> findByBookName(String bookName);
 
     /**

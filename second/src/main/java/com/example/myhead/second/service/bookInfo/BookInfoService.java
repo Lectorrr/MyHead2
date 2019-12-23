@@ -14,9 +14,6 @@ public class BookInfoService extends BaseService<BookInfo> {
     @Autowired
     private BookInfoDao bookInfoDao;
 
-    public BookInfo findByBookName(String bookName) {
-        return bookInfoDao.findBydBookName(bookName);
-    }
 
     public List<BookInfo> findListByBookName(String bookName) {
         return bookInfoDao.findByBookName(bookName);
