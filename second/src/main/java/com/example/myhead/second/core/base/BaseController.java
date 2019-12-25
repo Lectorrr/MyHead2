@@ -1,12 +1,25 @@
 package com.example.myhead.second.core.base;
 
+import com.example.myhead.second.common.entity.ResultData;
+import com.example.myhead.second.common.entity.UUResult;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.json.JacksonJsonParser;
 import org.springframework.core.annotation.AnnotationUtils;
+import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.Serializable;
+import java.util.List;
+import java.util.Map;
 
+/**
+ * @author lector
+ */
 public class BaseController<E extends BaseEntity, T extends Serializable> {
 
     @Autowired
@@ -65,19 +78,149 @@ public class BaseController<E extends BaseEntity, T extends Serializable> {
         PathPrefix = pathPrefix;
     }
 
-    /**
-     * add 增加方法
-     */
-
-    /**
-     * delete 删除方法
-     */
 
     /**
      * list 查方法
      */
 
     /**
-     * update 改方法
+     * 显示 create 创建页面
      */
+    @RequestMapping("/showCreatePage")
+    public String showCreatePage() {
+        return this.getPathPrefix() + "create";
+    }
+
+    /**
+     * 显示 list 界面
+     */
+    @RequestMapping("/showList")
+    public String showList() {
+        return this.viewName(this.getPathPrefix()) + "list";
+    }
+
+    /**
+     * 显示 update 编辑界面
+     */
+    @RequestMapping("/updatePage/{id}")
+    public String updatePage(@PathVariable String id, Model model) {
+        Object object = baseService.get(id);
+        model.addAttribute("e", object);
+        return this.getPathPrefix() + "update";
+    }
+
+    /**
+     * add 增加方法
+     */
+    @RequestMapping(value = "/save", method = RequestMethod.POST)
+    @ResponseBody
+    public Object save(E entity) {
+        UUResult result = new UUResult();
+        try {
+            Object object = baseService.saveOrUpdate(entity);
+            result.setData(object);
+            result.setSuccess(true);
+        } catch (Exception e) {
+            result.setSuccess(false);
+            return result;
+        }
+        return result;
+    }
+
+
+//    @RequestMapping(value = "/update", method = RequestMethod.POST)
+//    @ResponseBody
+//    public Object update(E entity) {
+//
+//        UUResult result = new UUResult();
+//        if (StringUtils.isEmpty(entity.getId())) {
+//            result.setSuccess(false);
+//            result.setMessage("操作失败，不存在ID，请检查更新数据！");
+//            return result;
+//        }
+//
+//        try {
+////            E entity = (E) baseService.get(entity.getId());
+//            t.setCreateDate(entity.getCreateDate());
+//            t.setUpdateDate(new Date());
+//            Object obj = baseService.save(t);
+//            result.setData(obj);
+//            result.setSuccess(true);
+//        }catch (Exception e){
+//            result.setSuccess(false);
+//            return result;
+//        }
+//        return result;
+//    }
+
+    /**
+     * 删除
+     *
+     * @param id 实体的id
+     */
+    @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
+    @ResponseBody
+    public Object delete(@PathVariable String id) {
+        UUResult result = new UUResult();
+        try {
+            baseService.deleteById(id);
+            result.setSuccess(true);
+        } catch (Exception e) {
+            result.setSuccess(false);
+            return result;
+        }
+        return result;
+    }
+
+    /**
+     * 批量删除
+     *
+     * @param json
+     * @return
+     */
+    @RequestMapping(value = "/deletes", method = RequestMethod.POST)
+    @ResponseBody
+    public Object deletes(String json) {
+        JacksonJsonParser jsonParser = new JacksonJsonParser();
+        List<Object> objects = jsonParser.parseList(json);
+        String[] temp = new String[objects.size()];
+        UUResult result = new UUResult();
+        try {
+            baseService.deletes(objects.toArray(temp));
+            result.setSuccess(true);
+        } catch (Exception e) {
+            result.setSuccess(false);
+            return result;
+        }
+        return result;
+    }
+
+    /**
+     * 查看详细数据
+     *
+     * @param id 实体id
+     */
+    @RequestMapping(value = "/get/{id}", method = RequestMethod.GET)
+    @ResponseBody
+    public Object listData(@PathVariable String id) {
+        Object object = baseService.get(id);
+        UUResult result = new UUResult();
+        result.setSuccess(true);
+        result.setData(object);
+        return result;
+    }
+
+    /**
+     * showList界面的数据
+     *
+     * @param request http请求
+     */
+    @RequestMapping(value = "/listData", method = RequestMethod.GET)
+    @ResponseBody
+    public Object listData(HttpServletRequest request) {
+        Map<String, String[]> parameterMap = request.getParameterMap();
+        ResultData<E> entity = baseService.findWithPage(parameterMap, entityClass);
+        return entity;
+    }
+
 }

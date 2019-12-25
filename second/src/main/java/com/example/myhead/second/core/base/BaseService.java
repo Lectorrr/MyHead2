@@ -63,7 +63,21 @@ public class BaseService<E extends BaseEntity> {
         return (E) result;
     }
 
+    /**
+     * 批量删除
+     *
+     * @param ids uuids
+     */
+    public void deletes(String... ids) {
+        for (String id : ids) {
+            baseDao.deleteById(id);
+        }
+    }
 
+    /**
+     * @param parameterMap parameterMap
+     * @param clazz        clazz
+     */
     public ResultData<E> findWithPage(Map<String, String[]> parameterMap, Class<?> clazz) {
 
         Integer length = Integer.valueOf(parameterMap.get("length")[0]);
