@@ -50,7 +50,7 @@ public class SysUser extends BaseEntity<String> {
             name = "sys_user_role",
             joinColumns = {@JoinColumn(name = "USER_ID", referencedColumnName = "UUID")},             //sys_user表中的id在这个表中喂USER_ID
             inverseJoinColumns = {@JoinColumn(name = "ROLE_ID", referencedColumnName = "UUID")},      //sys_role表中的id在sys_user_role表中喂ROLE_ID
-            uniqueConstraints = {@UniqueConstraint(columnNames = {"USER_ID", "ROLE_ID"})}           //这两个字段联合在一起时唯一确定的
+            uniqueConstraints = {@UniqueConstraint(columnNames = {"USER_ID", "ROLE_ID"})}             //这两个字段联合在一起时唯一确定的
     )
     private List<SysRole> roles;
 
