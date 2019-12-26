@@ -2,6 +2,8 @@ package com.example.myhead.second.core.base;
 
 import com.example.myhead.second.common.entity.ResultData;
 import com.example.myhead.second.common.entity.UUResult;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.json.JacksonJsonParser;
 import org.springframework.core.annotation.AnnotationUtils;
@@ -112,9 +114,29 @@ public class BaseController<E extends BaseEntity, T extends Serializable> {
     /**
      * add 增加方法
      */
-    @RequestMapping(value = "/save", method = RequestMethod.POST)
+    @RequestMapping(value = "/add", method = RequestMethod.POST)
     @ResponseBody
     public Object save(E entity) {
+        UUResult result = new UUResult();
+        try {
+            Object object = baseService.saveOrUpdate(entity);
+            result.setData(object);
+            result.setSuccess(true);
+        } catch (Exception e) {
+            result.setSuccess(false);
+            return result;
+        }
+        return result;
+    }
+
+    /**
+     * add 增加 json 数据格式方法
+     */
+    @RequestMapping(value = "/addJson", method = RequestMethod.POST)
+    @ResponseBody
+    public Object addJson(String json) throws JsonProcessingException {
+        ObjectMapper objectMapper = new ObjectMapper();
+        E entity = objectMapper.readValue(json, entityClass);
         UUResult result = new UUResult();
         try {
             Object object = baseService.saveOrUpdate(entity);
