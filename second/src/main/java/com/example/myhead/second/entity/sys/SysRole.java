@@ -3,7 +3,6 @@ package com.example.myhead.second.entity.sys;
 import com.example.myhead.second.core.base.BaseEntity;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
 @Table(name = "sys_role")
@@ -33,7 +32,7 @@ public class SysRole extends BaseEntity<String> {
             inverseJoinColumns = {@JoinColumn(name = "PERMISSION_ID", referencedColumnName = "UUID")},
             uniqueConstraints = {@UniqueConstraint(columnNames = {"ROLE_ID", "PERMISSION_ID"})}
     )
-    private List<SysPermission> permissions;
+    private SysPermission permission;
 
     /**
      * 角色和用户关联
@@ -46,7 +45,7 @@ public class SysRole extends BaseEntity<String> {
             inverseJoinColumns = {@JoinColumn(name = "USER_ID", referencedColumnName = "UUID")},
             uniqueConstraints = {@UniqueConstraint(columnNames = {"USER_ID", "ROLE_ID"})}
     )
-    private List<SysUser> users;
+    private SysUser users;
 
     public String getRoleName() {
         return roleName;
@@ -64,19 +63,19 @@ public class SysRole extends BaseEntity<String> {
         this.delFlag = delFlag;
     }
 
-    public List<SysPermission> getPermissions() {
-        return permissions;
+    public SysPermission getPermission() {
+        return permission;
     }
 
-    public void setPermissions(List<SysPermission> permissions) {
-        this.permissions = permissions;
+    public void setPermission(SysPermission permission) {
+        this.permission = permission;
     }
 
-    public List<SysUser> getUsers() {
+    public SysUser getUsers() {
         return users;
     }
 
-    public void setUsers(List<SysUser> users) {
+    public void setUsers(SysUser users) {
         this.users = users;
     }
 }
