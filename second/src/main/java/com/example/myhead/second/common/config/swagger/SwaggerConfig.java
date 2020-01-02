@@ -1,4 +1,4 @@
-package com.example.myhead.second.common.config;
+package com.example.myhead.second.common.config.swagger;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
