@@ -13,7 +13,7 @@ public class SysRole extends BaseEntity<String> {
      * 角色名称
      */
     @Column(name = "role_name")
-    private String rolename;
+    private String roleName;
 
     /**
      * 是否删除:-1-已删除；0-正常
@@ -48,12 +48,12 @@ public class SysRole extends BaseEntity<String> {
     )
     private List<SysUser> users;
 
-    public String getRolename() {
-        return rolename;
+    public String getRoleName() {
+        return roleName;
     }
 
-    public void setRolename(String rolename) {
-        this.rolename = rolename;
+    public void setRoleName(String roleName) {
+        this.roleName = roleName;
     }
 
     public Integer getDelFlag() {

@@ -67,6 +67,7 @@
             <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
 
+        <!--jwt: JSON Web Token是token令牌生成方案，作为登录和授权认证的凭证-->
         <dependency>
             <groupId>io.jsonwebtoken</groupId>
             <artifactId>jjwt</artifactId>

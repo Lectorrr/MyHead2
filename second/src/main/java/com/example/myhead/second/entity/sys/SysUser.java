@@ -52,7 +52,7 @@ public class SysUser extends BaseEntity<String> {
             inverseJoinColumns = {@JoinColumn(name = "ROLE_ID", referencedColumnName = "UUID")},      //sys_role表中的id在sys_user_role表中喂ROLE_ID
             uniqueConstraints = {@UniqueConstraint(columnNames = {"USER_ID", "ROLE_ID"})}             //这两个字段联合在一起时唯一确定的
     )
-    private List<SysRole> roles;
+    private SysRole role;
 
     public String getUsername() {
         return username;
@@ -94,12 +94,12 @@ public class SysUser extends BaseEntity<String> {
         this.delFlag = delFlag;
     }
 
-    public List<SysRole> getRoles() {
-        return roles;
+    public SysRole getRole() {
+        return role;
     }
 
-    public void setRoles(List<SysRole> roles) {
-        this.roles = roles;
+    public void setRole(SysRole role) {
+        this.role = role;
     }
 
     /**

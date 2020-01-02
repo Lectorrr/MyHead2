@@ -1,4 +1,4 @@
-package com.example.myhead.second.common.config;
+package com.example.myhead.second.common.config.Kaptcha;
 
 import com.google.code.kaptcha.impl.DefaultKaptcha;
 import com.google.code.kaptcha.util.Config;
