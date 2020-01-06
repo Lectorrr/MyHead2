@@ -3,6 +3,7 @@ package com.example.myhead.second.entity.sys;
 import com.example.myhead.second.core.base.BaseEntity;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "sys_role")
@@ -25,27 +26,26 @@ public class SysRole extends BaseEntity<String> {
      * 角色和权限关联
      * 多对多的关系
      */
-    @ManyToMany(fetch = FetchType.EAGER)
+    @OneToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "sys_role_permission",
             joinColumns = {@JoinColumn(name = "ROLE_ID", referencedColumnName = "UUID")},
-            inverseJoinColumns = {@JoinColumn(name = "PERMISSION_ID", referencedColumnName = "UUID")},
-            uniqueConstraints = {@UniqueConstraint(columnNames = {"ROLE_ID", "PERMISSION_ID"})}
+            inverseJoinColumns = {@JoinColumn(name = "PERMISSION_ID", referencedColumnName = "UUID")}
     )
-    private SysPermission permission;
+    private List<SysPermission> permissions;
 
     /**
      * 角色和用户关联
      * 多对多的关系
      */
-    @ManyToMany
+    @OneToMany
     @JoinTable(
             name = "sys_user_role",
             joinColumns = {@JoinColumn(name = "ROLE_ID", referencedColumnName = "UUID")},
             inverseJoinColumns = {@JoinColumn(name = "USER_ID", referencedColumnName = "UUID")},
             uniqueConstraints = {@UniqueConstraint(columnNames = {"USER_ID", "ROLE_ID"})}
     )
-    private SysUser users;
+    private List<SysUser> users;
 
     public String getRoleName() {
         return roleName;
@@ -63,19 +63,19 @@ public class SysRole extends BaseEntity<String> {
         this.delFlag = delFlag;
     }
 
-    public SysPermission getPermission() {
-        return permission;
+    public List<SysPermission> getPermissions() {
+        return permissions;
     }
 
-    public void setPermission(SysPermission permission) {
-        this.permission = permission;
+    public void setPermissions(List<SysPermission> permissions) {
+        this.permissions = permissions;
     }
 
-    public SysUser getUsers() {
+    public List<SysUser> getUsers() {
         return users;
     }
 
-    public void setUsers(SysUser users) {
+    public void setUsers(List<SysUser> users) {
         this.users = users;
     }
 }

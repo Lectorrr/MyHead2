@@ -44,12 +44,12 @@ public class SysUser extends BaseEntity<String> {
      * 用户和角色关联
      * 多对多的关系
      */
-    @ManyToMany(fetch = FetchType.EAGER) //立即从数据库中加载数据
+
+    @ManyToOne
     @JoinTable(
             name = "sys_user_role",
             joinColumns = {@JoinColumn(name = "USER_ID", referencedColumnName = "UUID")},             //sys_user表中的id在这个表中喂USER_ID
-            inverseJoinColumns = {@JoinColumn(name = "ROLE_ID", referencedColumnName = "UUID")},      //sys_role表中的id在sys_user_role表中喂ROLE_ID
-            uniqueConstraints = {@UniqueConstraint(columnNames = {"USER_ID", "ROLE_ID"})}             //这两个字段联合在一起时唯一确定的
+            inverseJoinColumns = {@JoinColumn(name = "ROLE_ID", referencedColumnName = "UUID")}       //sys_role表中的id在sys_user_role表中喂ROLE_ID
     )
     private SysRole role;
 

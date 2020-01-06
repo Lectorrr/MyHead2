@@ -36,20 +36,24 @@ public class SysUserService extends BaseService<SysUser> {
         return sysUserDao.getByUsernameAndPassword(username, password);
     }
 
-    public SysUser findUserByUser(String account, String password){
+    public SysUser findUserByUser(String account, String password) {
+
         Specification<SysUser> specification = new Specification<SysUser>() {
+
             @Override
             public Predicate toPredicate(Root<SysUser> root, CriteriaQuery<?> criteriaQuery, CriteriaBuilder criteriaBuilder) {
+
                 Path<String> tAccount = root.get("account");
                 Predicate predicateAccount = criteriaBuilder.equal(tAccount, account);
 
                 Path<String> tPassword = root.get("password");
                 Predicate predicatePassword = criteriaBuilder.equal(tPassword, password);
-                return criteriaBuilder.and(predicateAccount,predicatePassword);
+
+                return criteriaBuilder.and(predicateAccount, predicatePassword);
             }
         };
         List<SysUser> all = this.sysUserDao.findAll(specification);
 
-        return CollectionUtils.isEmpty(all)?null:all.get(0);
+        return CollectionUtils.isEmpty(all) ? null : all.get(0);
     }
 }

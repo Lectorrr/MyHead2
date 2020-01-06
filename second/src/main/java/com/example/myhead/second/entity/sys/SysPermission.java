@@ -30,12 +30,11 @@ public class SysPermission extends BaseEntity<String> {
      * 权限和角色的关系
      * 多对一的关系
      */
-    @ManyToMany
+    @ManyToOne
     @JoinTable(
             name = "sys_role_permission",
-            joinColumns = {@JoinColumn(name = "PERMISSION_ID", referencedColumnName = "ID")},
-            inverseJoinColumns = {@JoinColumn(name = "ROLE_ID", referencedColumnName = "ID")},
-            uniqueConstraints = {@UniqueConstraint(columnNames = {"ROLE_ID", "PERMISSION_ID"})}
+            joinColumns = {@JoinColumn(name = "PERMISSION_ID", referencedColumnName = "UUID")},
+            inverseJoinColumns = {@JoinColumn(name = "ROLE_ID", referencedColumnName = "UUID")}
     )
     private SysRole role;
 
