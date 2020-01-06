@@ -1,8 +1,8 @@
 package com.example.myhead.second.core.base;
 
 import com.example.myhead.second.common.entity.Condition;
-import com.example.myhead.second.common.utils.RequestParameterProcess;
 import com.example.myhead.second.common.entity.ResultData;
+import com.example.myhead.second.common.utils.RequestParameterProcess;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -13,7 +13,10 @@ import org.springframework.util.StringUtils;
 import javax.persistence.criteria.*;
 import javax.transaction.Transactional;
 import java.lang.reflect.Field;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
 /**
  * BaseService 类：
@@ -219,5 +222,4 @@ public class BaseService<E extends BaseEntity> {
 
         return predicate;
     }
-
 }
