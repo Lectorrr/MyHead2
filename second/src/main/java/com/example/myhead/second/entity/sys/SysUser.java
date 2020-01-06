@@ -108,4 +108,16 @@ public class SysUser extends BaseEntity<String> {
     public String getCredentialsSalt() {
         return this.username + this.salt;
     }
+
+    @Override
+    public String toString() {
+        return "SysUser{" +
+                "username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", salt='" + salt + '\'' +
+                ", status=" + status +
+                ", delFlag=" + delFlag +
+                ", role=" + role +
+                '}';
+    }
 }
