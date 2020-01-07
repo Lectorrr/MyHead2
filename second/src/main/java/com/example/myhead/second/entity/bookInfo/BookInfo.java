@@ -19,8 +19,8 @@ public class BookInfo extends BaseEntity<String> {
     /**
      * 作者姓名
      */
-    @Column(name = "book_writer")
-    private String bookWriter;
+    @Column(name = "author")
+    private String author;
 
     /**
      * 出版社名称
@@ -48,12 +48,12 @@ public class BookInfo extends BaseEntity<String> {
         this.bookName = bookName;
     }
 
-    public String getBookWriter() {
-        return bookWriter;
+    public String getAuthor() {
+        return author;
     }
 
-    public void setBookWriter(String bookWriter) {
-        this.bookWriter = bookWriter;
+    public void setAuthor(String author) {
+        this.author = author;
     }
 
     public String getPublish() {
