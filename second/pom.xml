@@ -21,6 +21,7 @@
         <swagger.version>2.9.2</swagger.version>
         <druid.version>1.1.10</druid.version>
         <log4j.version>1.2.17</log4j.version>
+        <commons-lang3.version>3.9</commons-lang3.version>
     </properties>
 
     <dependencies>
@@ -64,10 +65,10 @@
         </dependency>
 
         <!--引入 spring security 依赖-->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-security</artifactId>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>org.springframework.boot</groupId>-->
+            <!--<artifactId>spring-boot-starter-security</artifactId>-->
+        <!--</dependency>-->
 
         <!--jwt: JSON Web Token是token令牌生成方案，作为登录和授权认证的凭证-->
         <dependency>
@@ -127,6 +128,11 @@
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-annotations</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>${commons-lang3.version}</version>
         </dependency>
     </dependencies>
 

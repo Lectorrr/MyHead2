@@ -2,10 +2,13 @@ package com.example.myhead.second.controller;
 
 import com.example.myhead.second.common.entity.Result;
 import com.example.myhead.second.entity.sys.SysUser;
+import com.example.myhead.second.service.sys.SysUserService;
 import com.google.code.kaptcha.Constants;
 import com.google.code.kaptcha.Producer;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.session.MapSession;
+import org.springframework.session.Session;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.HtmlUtils;
@@ -16,7 +19,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.util.Objects;
 
 @Controller
 @RequestMapping(value = "/api")
@@ -24,6 +26,9 @@ public class LoginController {
 
     @Autowired
     private Producer producer;
+
+    @Autowired
+    private SysUserService sysUserService;
 
     @GetMapping("captcha.jpg")
     public void captcha(HttpServletResponse response, HttpServletRequest request) throws IOException {
@@ -48,19 +53,26 @@ public class LoginController {
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     @ResponseBody
     public Result login(@RequestBody SysUser requestUser) {
+
         // 对 html 标签进行转义，防止 XSS 攻击
         String username = requestUser.getUsername();
         username = HtmlUtils.htmlEscape(username);
+        String password = requestUser.getPassword();
         Result result = new Result();
-        if (!Objects.equals("admin", username) || !Objects.equals("123456", requestUser.getPassword())) {
-            String message = "账号密码错误";
-            System.out.println("test");
+
+        if (!sysUserService.isExist(username)){
+            result.setCode(400);
+            return result;
+        }
+        SysUser sysUser = sysUserService.findByUsernameAndPassword(username, password);
+        if (null == sysUser) {
             result.setCode(400);
             return result;
         } else {
+            Session session = new MapSession();
+            session.setAttribute("user", sysUser);
             result.setCode(200);
             return result;
         }
-
     }
 }
