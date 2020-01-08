@@ -23,4 +23,11 @@ public class BookInfoService extends BaseService<BookInfo> {
         return bookInfoDao.findByPublish(publish);
     }
 
+    public List<BookInfo> findAllByBookAndBookNameOrAndAuthorLike(String bookName, String author) {
+        return bookInfoDao.findAllByBookAndBookNameOrAndAuthorLike(bookName, author);
+    }
+
+    public List<BookInfo> findByAuthor(String author) {
+        return bookInfoDao.findByAuthor(author);
+    }
 }
