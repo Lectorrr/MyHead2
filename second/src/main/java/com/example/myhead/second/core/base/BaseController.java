@@ -1,6 +1,5 @@
 package com.example.myhead.second.core.base;
 
-import com.example.myhead.second.common.entity.ResultData;
 import com.example.myhead.second.common.entity.UUResult;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -14,10 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.servlet.http.HttpServletRequest;
 import java.io.Serializable;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @author lector
@@ -231,18 +228,4 @@ public class BaseController<E extends BaseEntity, T extends Serializable> {
         result.setData(object);
         return result;
     }
-
-    /**
-     * showList界面的数据
-     *
-     * @param request http请求
-     */
-    @RequestMapping(value = "/listData", method = RequestMethod.GET)
-    @ResponseBody
-    public Object listData(HttpServletRequest request) {
-        Map<String, String[]> parameterMap = request.getParameterMap();
-        ResultData<E> entity = baseService.findWithPage(parameterMap, entityClass);
-        return entity;
-    }
-
 }

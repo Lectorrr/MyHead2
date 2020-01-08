@@ -2,9 +2,7 @@ package com.example.myhead.second.entity.bookInfo;
 
 import com.example.myhead.second.core.base.BaseEntity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "bookInfo")
@@ -39,6 +37,17 @@ public class BookInfo extends BaseEntity<String> {
      */
     @Column(name = "description")
     private String description;
+
+    /**
+     * 书籍分类
+     */
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "book_bookInfo_category",
+            joinColumns = {@JoinColumn(name = "book_id", referencedColumnName = "UUID")},
+            inverseJoinColumns = {@JoinColumn(name = "category_id", referencedColumnName = "UUID")}
+    )
+    private Category category;
 
     public String getBookName() {
         return bookName;
@@ -78,5 +87,13 @@ public class BookInfo extends BaseEntity<String> {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
     }
 }
