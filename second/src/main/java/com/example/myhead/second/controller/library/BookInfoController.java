@@ -1,4 +1,4 @@
-package com.example.myhead.second.controller.bookInfo;
+package com.example.myhead.second.controller.library;
 
 import com.example.myhead.second.common.entity.ResultData;
 import com.example.myhead.second.core.base.BaseController;
@@ -15,7 +15,7 @@ import java.util.Map;
 
 @Controller
 @RequestMapping(value = "/api/bookInfo")
-public class LibraryController extends BaseController<BookInfo, String> {
+public class BookInfoController extends BaseController<BookInfo, String> {
 
     @Autowired
     private BookInfoService bookInfoService;
